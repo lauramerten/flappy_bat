@@ -1,4 +1,4 @@
-import 'package:flappy_bat/features/home/presentation/home_view.dart';
+import 'package:flappy_bat/features/gameplay/presentation/game_view.dart';
 import 'package:flutter/material.dart';
 
 /// Configures the root widget tree of the app.
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: "Flappy Bat",
       debugShowCheckedModeBanner: false,
-      home: HomeView(),
+      home: GameView(),
     );
   }
 }
