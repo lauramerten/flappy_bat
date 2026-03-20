@@ -16,8 +16,8 @@ class _GameViewState extends State<GameView> {
 
   @override
   void initState() {
-    _game = FlappyBatGame();
     super.initState();
+    _game = FlappyBatGame();
   }
 
   @override

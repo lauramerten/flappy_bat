@@ -6,6 +6,7 @@ import 'package:flappy_bat/features/gameplay/world/flappy_bat_game.dart';
 class ParallaxBackground extends ParallaxComponent<FlappyBatGame> {
   @override
   Future<void> onLoad() async {
+    await super.onLoad();
     anchor = .center;
     parallax = await game.loadParallax(
       [

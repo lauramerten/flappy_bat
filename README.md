@@ -12,6 +12,16 @@ Flappy Bat is a mini-game built with **Flutter** and the **Flame game engine**.
 
 ---
 
+## Gameplay
+
+The latest gameplay iteration includes:
+
+- gravity-based bat movement with jump input
+- pipe pairs spawning ahead of the player and moving through the world
+- pointer and space-bar controls for jumping
+
+---
+
 ## Flutter Version
 
 ```
