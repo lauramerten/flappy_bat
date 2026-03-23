@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flappy_bat/features/gameplay/world/gameplay_config.dart';
 
 /// Renders a single top or bottom pipe.
 class Pipe extends PositionComponent {
@@ -29,8 +31,10 @@ class Pipe extends PositionComponent {
     };
 
     final double ratio = _sprite.srcSize.y / _sprite.srcSize.x;
-    final double width = 100;
+    final double width = PipeConfig.width;
     size = Vector2(width, width * ratio);
+
+    add(RectangleHitbox(collisionType: .passive));
   }
 
   @override

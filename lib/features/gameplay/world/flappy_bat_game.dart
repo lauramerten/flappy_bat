@@ -6,18 +6,19 @@ import 'package:flame/game.dart';
 import 'package:flappy_bat/features/gameplay/world/components/bat.dart';
 import 'package:flappy_bat/features/gameplay/world/components/parallax_background.dart';
 import 'package:flappy_bat/features/gameplay/world/components/pipes/pipe_pair.dart';
+import 'package:flappy_bat/features/gameplay/world/gameplay_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// Defines the main Flame game instance.
-class FlappyBatGame extends FlameGame<FlappyBatWorld> with KeyboardEvents {
+class FlappyBatGame extends FlameGame<FlappyBatWorld> with KeyboardEvents, HasCollisionDetection {
   /// Creates the main Flame game instance for the active gameplay session.
   FlappyBatGame()
     : super(
         world: FlappyBatWorld(),
         camera: CameraComponent.withFixedResolution(
-          width: 600,
-          height: 1000,
+          width: WorldConfig.width,
+          height: WorldConfig.height,
         ),
       );
 
@@ -38,20 +39,19 @@ class FlappyBatGame extends FlameGame<FlappyBatWorld> with KeyboardEvents {
 class FlappyBatWorld extends World with TapCallbacks, HasGameReference<FlappyBatGame> {
   late final Bat _bat;
   late PipePair _lastPipes;
-  static const double _pipeDistance = 400;
 
   @override
   void onLoad() {
     super.onLoad();
     add(ParallaxBackground());
     add(_bat = Bat());
-    _generatePipes(fromX: _pipeDistance);
+    _generatePipes(fromX: PipeConfig.distance);
   }
 
   @override
   void update(double dt) {
     if (_bat.x >= _lastPipes.x) {
-      _generatePipes(fromX: _pipeDistance);
+      _generatePipes(fromX: PipeConfig.distance);
       _removeOldPipes();
     }
     game.camera.viewfinder.zoom = 1;
@@ -70,10 +70,10 @@ class FlappyBatWorld extends World with TapCallbacks, HasGameReference<FlappyBat
   }
 
   void _generatePipes({int count = 5, double fromX = 0}) {
-    const double area = 650;
+    const double area = PipeConfig.spawnArea;
     for (int i = 0; i < count; i++) {
       final double y = (Random().nextDouble() * area) - (area / 2);
-      add(_lastPipes = PipePair(position: Vector2(fromX + (i * _pipeDistance), y)));
+      add(_lastPipes = PipePair(position: Vector2(fromX + (i * PipeConfig.distance), y)));
     }
   }
 
